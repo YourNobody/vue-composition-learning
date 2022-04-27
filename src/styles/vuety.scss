@@ -1,0 +1,131 @@
+@import './variables';
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+  color: $green;
+  text-align: center;
+}
+
+h2 {
+  font-size: 34px;
+  font-weight: 500;
+  color: $green;
+  text-align: center;
+}
+
+.btn-link {
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  position: relative;
+  z-index: 0;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center !important;
+}
+
+.flex-justify-center {
+  display: flex;
+  justify-content: center !important;
+}
+
+.fully {
+  background-color: $green;
+  border: 1px solid $green;
+  color: white;
+  transition: all 0.2s;
+  transition-delay: 0.2s;
+
+  &.go-over::before, &.go-collapse::before, &.go-collapse::after {
+    background-color: white;
+  }
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.borderly {
+  background-color: white;
+  border: 1px solid $green;
+  transition: all 0.2s;
+  transition-delay: 0.2s;
+
+  &:hover {
+    background-color: $green;
+    color: white
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.go-over, .go-collapse {
+  overflow: hidden;
+}
+
+.go-over {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 1000%;
+    width: 180%;
+    background-color: $green;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    transform: translate(-115%, -60%) rotate(30deg);
+    transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  &:hover::before {
+    transform: translate(-20%, -44%) rotate(30deg);
+  }
+}
+
+.go-collapse {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 900%;
+    width: 250%;
+    background-color: $green;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    transform: translate(-115%, -55%) rotate(30deg);
+    transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 900%;
+    width: 250%;
+    background-color: $green;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    transform: translate(55%, -30%) rotate(30deg);
+    transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  &:hover::before {
+    transform: translate(-70%, -60%) rotate(30deg);
+  }
+
+  &:hover::after {
+    transform: translate(0%, -30%) rotate(30deg);
+  }
+}

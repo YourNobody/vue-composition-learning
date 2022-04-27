@@ -1,30 +1,36 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <router-view></router-view>
+  </div>
 </template>
 
+<script setup>
+  import "vue-toastification/dist/index.css";
+  import {inject, onMounted, ref, watch} from 'vue';
+  import {useDocumentContentLoaded} from '@/hooks';
+  import {useToast} from 'vue-toastification';
+
+  const isOnline = inject('isOnline');
+  useDocumentContentLoaded(() => {
+    !isOnline().value && useToast().warning('В данный момент подключение к интернету отсутствует.\nНекоторые возможности могут быть недоступны');
+  });
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @import './styles/cancel';
+  @import "./styles/variables";
+  @import "./styles/vuety";
+  @import "./styles/formkit";
+  @import "./styles/toast";
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  #app {
+    min-height: 100vh;
   }
-}
+
+  .container {
+    width: 1024px;
+    min-height: 100vh;
+    margin: 0 auto;
+    position: relative;
+  }
 </style>

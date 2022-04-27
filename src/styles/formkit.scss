@@ -1,0 +1,184 @@
+@import "./variables";
+
+.form-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.formkit-outer {
+  &.filled {
+    label {
+      color: $green;
+    }
+
+    input {
+      border-color: $green;
+    }
+  }
+
+  &[data-disabled="true"] {
+    input {
+      border-color: gray;
+
+      &:active {
+        transform: none;
+      }
+    }
+    label {
+      color: gray;
+    }
+  }
+
+  &[data-invalid] {
+    label {
+      color: $red;
+    }
+
+    input {
+      border-color: $red;
+
+      &:focus {
+        border-color: $red;
+      }
+    }
+
+    .formkit-message {
+      font-size: 13.5px;
+      color: $red;
+    }
+  }
+
+  .formkit-messages {
+    margin-top: 3px;
+  }
+
+  .formkit-wrapper {
+    display: grid;
+    gap: 2px;
+  }
+
+  label {
+    padding-left: 3px;
+    transition: 0.2s all;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 16px;
+    border: 1px solid black;
+    transition: 0.2s all;
+
+    &:focus {
+      border-color: $green;
+    }
+  }
+
+  .input-block {
+    display: grid;
+    gap: 5px;
+  }
+
+  .errors {
+    display: grid;
+    gap: 8px;
+  }
+}
+
+.formkit-actions {
+  button[type=submit].formkit-input {
+    padding: 12px 24px;
+    box-shadow: 0 0 0 1px $green;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    background-color: white;
+    transition: color 0.2s;
+    transition-delay: 0.2s;
+    z-index: 0;
+
+    &:hover {
+      color: white;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      color: gray;
+      box-shadow: 0 0 0 1px gray;
+      border-radius: 15px;
+
+      &:active {
+        transform: none;
+      }
+    }
+  }
+
+  &.w-go-over {
+    button[type=submit] {
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 1000%;
+        width: 180%;
+        background-color: $green;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        transform: translate(-115%, -60%) rotate(30deg);
+        transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      &:hover::before {
+        transform: translate(-20%, -44%) rotate(30deg);
+      }
+    }
+  }
+
+  &.w-go-collapse {
+    button[type=submit] {
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 900%;
+        width: 250%;
+        background-color: $green;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        transform: translate(-115%, -55%) rotate(30deg);
+        transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 900%;
+        width: 250%;
+        background-color: $green;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        transform: translate(55%, -30%) rotate(30deg);
+        transition: 0.5s all cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      &:hover::before {
+        transform: translate(-70%, -60%) rotate(30deg);
+      }
+
+      &:hover::after {
+        transform: translate(0%, -30%) rotate(30deg);
+      }
+    }
+  }
+}
