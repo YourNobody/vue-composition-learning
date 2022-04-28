@@ -1,6 +1,8 @@
+import {AuthFirebaseService} from '@/services';
+
 export default {
   state: () => ({
-    info: null,
+    userInfo: null,
     accessToken: null,
     isAuthProcessLoading: false
   }),
@@ -11,22 +13,23 @@ export default {
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
     },
-    setInfo(state, info) {
-      state.info = info;
+    setInfo(state, userInfo) {
+      state.info = userInfo;
     },
     setIsAuthProcessLoading(state, isLoadingValue) {
       state.isAuthProcessLoading = isLoadingValue;
     }
   },
   actions: {
-    login() {
-
+    async login({ state }) {
+      console.log(state);
+      // const response = AuthFirebaseService.login(data);
     },
-    logout() {
-
+    async signup({ state }) {
+      console.log(state)
     },
-    refresh() {
-
+    async logout({ state }) {
+      console.log(state);
     },
     reset() {
 
@@ -34,5 +37,6 @@ export default {
     updateInfo() {
 
     }
-  }
+  },
+  namespaced: true
 };

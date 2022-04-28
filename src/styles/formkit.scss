@@ -85,7 +85,14 @@
   }
 }
 
-.formkit-actions {
+.formkit-actions, .formkit-outer[data-type='submit'] {
+  &.w-error {
+    button[type=submit].formkit-input {
+      box-shadow: 0 0 0 1px $red;
+      color: $red;
+    }
+  }
+
   button[type=submit].formkit-input {
     padding: 12px 24px;
     box-shadow: 0 0 0 1px $green;
@@ -98,7 +105,7 @@
     z-index: 0;
 
     &:hover {
-      color: white;
+      color: black;
     }
 
     &:active {
@@ -179,6 +186,12 @@
       &:hover::after {
         transform: translate(0%, -30%) rotate(30deg);
       }
+    }
+  }
+
+  &.w-go-over, &.w-go-collapse {
+    button[type=submit]:hover {
+      color: white;
     }
   }
 }

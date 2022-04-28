@@ -1,50 +1,47 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import {inject} from 'vue';
-import {useToast} from 'vue-toastification';
+import {notifyIfIsOffline} from '@/helpers';
+import {firebaseConfig} from '@/configs';
 
-export const useFirebase = () => {
-  const isOnline = inject('isOnline')();
-  function notifyIfIsOffline() {
-    !isOnline.value && useToast().warning('В данный момент подключение к интернету отсутствует.\nДанная функция не может быть выполнена');
-    return !isOnline.value;
+export class AuthFirebaseService {
+  constructor() {
+    firebase.initializeApp(firebaseConfig);
+    this.authedFirebase = firebase.auth();
   }
 
-  const FB = firebase.auth();
-
-  const login = async data => {
+  async login(data) {
     try {
       if (notifyIfIsOffline()) return;
-      const response = await FB.signInWithEmailAndPassword(data.email, data.password);
+      const response = await this.authedFirebase.signInWithEmailAndPassword(data.email, data.password);
       return response;
     } catch (e) {
       return {
         error: parseFirebaseError(e)
       };
     }
-  };
+  }
 
-  const signup = async data => {
+  async signup(data) {
     try {
       if (notifyIfIsOffline()) return;
-      const response = await FB.createUserWithEmailAndPassword(data.email, data.password);
+      const response = await this.authedFirebase.createUserWithEmailAndPassword(data.email, data.password);
       return response;
     } catch (e) {
       return {
         error: parseFirebaseError(e)
       };
     }
-  };
+  }
 
-  const reset = async data => {
+  async logout(data) {
+  }
 
-  };
+  async reset(data) {
+  }
+}
 
-  return {
-    login, signup, reset
-  };
-};
+export default new AuthFirebaseService();
 
 function parseFirebaseError(error) {
   console.dir(error);
@@ -57,6 +54,7 @@ function parseFirebaseError(error) {
     case 'auth/weak-password': return 'Пароль слишком легкий: минимум 6 символов';
     case 'auth/email-already-in-use': return 'Пользователь с такой почтой уже существует';
     case 'auth/invalid-password': return 'Неверный пароль';
+    case 'auth/too-many-requests': return 'Слишком много запросов из формы\nПопробуйте позже';
     default: return error.message;
   }
 }

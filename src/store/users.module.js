@@ -11,5 +11,6 @@ export default {
     fetchUsers({ commit }) {
 
     }
-  }
+  },
+  namespaced: true
 };

@@ -6,11 +6,11 @@
 
 <script setup>
   import "vue-toastification/dist/index.css";
-  import {inject, onMounted, ref, watch} from 'vue';
+  import {onMounted} from 'vue';
   import {useDocumentContentLoaded} from '@/hooks';
   import {useToast} from 'vue-toastification';
+  import {isOnline} from '@/helpers';
 
-  const isOnline = inject('isOnline');
   useDocumentContentLoaded(() => {
     !isOnline().value && useToast().warning('В данный момент подключение к интернету отсутствует.\nНекоторые возможности могут быть недоступны');
   });

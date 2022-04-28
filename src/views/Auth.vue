@@ -42,9 +42,8 @@
         form-class="form-grid"
         v-model="forms.login"
         @submit="handleSubmit('login', login)"
-        :submit-label="isFormProcessing ? 'Идет процесс входа' : 'Войти'"
-        :actions-class="!isFormProcessing && 'w-go-collapse'"
         :disabled="isFormProcessing"
+        :actions="false"
       >
         <FormKit
           name="email"
@@ -60,10 +59,16 @@
           type="password"
           placeholder="Введите пароль"
           label="Пароль"
-          :input-class="withContent(forms.login?.password?.length)"
-          :label-class="withContent(forms.login?.password?.length)"
+          :outer-class="withContent(forms.login?.password?.length)"
           :validation="getValidators('password')"
           :validation-messages="getCustomValidationMessages('password')"
+        />
+        <FormKit
+          type="submit"
+          :outer-class="{
+            'w-go-collapse': !isFormProcessing
+          }"
+          :label="isFormProcessing ? 'Идет процесс входа' : 'Войти'"
         />
       </FormKit>
       <div class="links__wrapper">
@@ -131,8 +136,8 @@
 <script setup>
 import {computed, ref, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
-import {useElementStyles, useForm, useFirebase} from '@/hooks';
-import {submitForm} from '@formkit/vue'
+import {useElementStyles, useForm, useVuex} from '@/hooks';
+import {useFirebase} from '@/hooks/useFirebaseServices';
 
 const router = useRouter();
 const route = useRoute();
@@ -169,9 +174,9 @@ const changeBlock = (to, options = {}) => {
 };
 
 const {withError, withContent} = useElementStyles();
-
 const {login, signup} = useFirebase();
-const {forms, isFormProcessing, getValidators, getCustomValidationMessages, handleSubmit} = useForm(
+const {mapGetters, bind} = useVuex();
+const {forms, isFormProcessing, isValid, getValidators, getCustomValidationMessages, handleSubmit} = useForm(
   ['login', 'signup'], {
     password: {
       required: true,
