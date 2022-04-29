@@ -1,6 +1,7 @@
 import {reactive, ref} from 'vue';
 import {useToast} from 'vue-toastification';
 import {reset} from '@formkit/vue'
+import {clearObjectValues} from '@/helpers';
 
 export const useForm = (formName, validators = {}, customMessages = {}) => {
   if (!formName) throw new Error(`Can't create form without formName`);
@@ -63,12 +64,11 @@ export const useForm = (formName, validators = {}, customMessages = {}) => {
       if (reset && typeof reset === 'function') {
         reset();
       } else {
-        for (const field in forms[formName]) {
-          if (field === 'email') continue;
-          forms[formName][field] = '';
-        }
+        clearObjectValues(forms[formName], ['email']);
       }
     }
+
+    reset ? reset() : clearObjectValues(forms[formName]);
 
     isFormProcessing.value = false;
     return response;

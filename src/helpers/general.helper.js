@@ -10,4 +10,13 @@ export const isOnline = () => {
 export const notifyIfIsOffline = (message) => {
   !isOnline().value && useToast().warning(message || 'В данный момент подключение к интернету отсутствует.\nДанная функция не может быть выполнена');
   return !isOnline().value;
-}
+};
+
+export const clearObjectValues = (obj, exclude) => {
+  if (!obj) return;
+  for (const key in obj) {
+    if (exclude && Array.isArray(exclude) && exclude.includes(key)) continue;
+    if (obj[key].value) obj[key].value = '';
+    else obj[key] = '';
+  }
+};

@@ -21,7 +21,6 @@
   @import "./styles/variables";
   @import "./styles/vuety";
   @import "./styles/formkit";
-  @import "./styles/toast";
 
   #app {
     min-height: 100vh;

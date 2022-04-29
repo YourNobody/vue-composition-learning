@@ -5,6 +5,16 @@
   gap: 15px;
 }
 
+.formkit-form {
+  & > .formkit-messages {
+    & > .formkit-message {
+      color: $red;
+      font-size: 13.5px;
+      text-align: center;
+    }
+  }
+}
+
 .formkit-outer {
   &.filled {
     label {

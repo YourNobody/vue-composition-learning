@@ -39,10 +39,13 @@
       <h1>Вход</h1>
       <FormKit
         type="form"
+        id="form-login"
         form-class="form-grid"
         v-model="forms.login"
-        @submit="handleSubmit('login', login)"
+        @submit="handleSubmit('login', login, () => $formkit.reset('form-login'))"
+        :submitted='false'
         :disabled="isFormProcessing"
+        incomplete-message="Поля заполнены неверно"
         :actions="false"
       >
         <FormKit
@@ -71,6 +74,7 @@
           :label="isFormProcessing ? 'Идет процесс входа' : 'Войти'"
         />
       </FormKit>
+      <hr />
       <div class="links__wrapper">
         <div @click="changeBlock('isSignup', {
           handler: () => router.push('/auth/signup')
@@ -85,8 +89,9 @@
       <FormKit
         type="form"
         form-class="form-grid"
+        id="form-signup"
         v-model="forms.signup"
-        @submit="handleSubmit('signup', signup)"
+        @submit="handleSubmit('signup', signup, () => $formkit.reset('form-signup'))"
         :submit-label="isFormProcessing ? 'Идет процесс регистрации' : 'Зарегистрироваться'"
         :actions-class="!isFormProcessing && 'w-go-collapse'"
       >
@@ -121,6 +126,7 @@
           :validation-messages="getCustomValidationMessages('confirm')"
         />
       </FormKit>
+      <hr />
       <div class="links__wrapper">
         <div @click="changeBlock('isLogin', {
           handler: () => router.push('/auth/login')
@@ -175,7 +181,7 @@ const changeBlock = (to, options = {}) => {
 
 const {withError, withContent} = useElementStyles();
 const {login, signup} = useFirebase();
-const {mapGetters, bind} = useVuex();
+const {mapState, mapMutations, bind, call, store} = useVuex();
 const {forms, isFormProcessing, isValid, getValidators, getCustomValidationMessages, handleSubmit} = useForm(
   ['login', 'signup'], {
     password: {

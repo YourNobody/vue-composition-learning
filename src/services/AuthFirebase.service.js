@@ -55,6 +55,7 @@ function parseFirebaseError(error) {
     case 'auth/email-already-in-use': return 'Пользователь с такой почтой уже существует';
     case 'auth/invalid-password': return 'Неверный пароль';
     case 'auth/too-many-requests': return 'Слишком много запросов из формы\nПопробуйте позже';
+    case 'auth/operation-not-allowed': return 'Ошибка сервиса. Попробуйте позже'
     default: return error.message;
   }
 }

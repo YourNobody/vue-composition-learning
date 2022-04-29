@@ -4,12 +4,16 @@ export default {
   state: () => ({
     userInfo: null,
     accessToken: null,
-    isAuthProcessLoading: false
+    isAuthProcessLoading: false,
+    count: 0
   }),
   getters: {
     isAuthenticated: (state) => !!state.accessToken,
   },
   mutations: {
+    increment(state, value) {
+      state.count += value || 1;
+    },
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
     },
