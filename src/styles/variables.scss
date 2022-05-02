@@ -1,3 +1,6 @@
 $green: #0c984e;
 $lightGray: #888888;
 $red: #980d0d;
+@function green-transparent($opacity: 0.5) {
+  @return rgba(12, 152, 78, $opacity);
+}

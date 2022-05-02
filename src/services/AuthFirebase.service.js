@@ -34,7 +34,19 @@ export class AuthFirebaseService {
     }
   }
 
-  async logout(data) {
+  async signout() {
+    try {
+      if (notifyIfIsOffline()) return;
+      console.log('curr: ', this.authedFirebase.currentUser);
+      const response = await this.authedFirebase.signOut();
+      console.log('resp: ', response);
+      console.log('after: ', this.authedFirebase.currentUser);
+      return response || {};
+    } catch (e) {
+      return {
+        error: parseFirebaseError(e)
+      };
+    }
   }
 
   async reset(data) {

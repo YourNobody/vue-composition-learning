@@ -3,14 +3,16 @@ import {useToast} from 'vue-toastification';
 import {generalToastOptions} from '@/configs';
 import {useRouter} from 'vue-router';
 import {useVuex} from '@/hooks/useVuex';
+import {UserFirebaseDto} from '@/dto/UserFirebaseDto';
 
 export const useFirebase = () => {
   const {mapMutations, call} = useVuex();
   const router = useRouter();
 
-  const { setIsAuthProcessLoading, setAccessToken } = mapMutations({
+  const { setIsAuthProcessLoading, setAccessToken, setUserInfo } = mapMutations({
     setIsAuthProcessLoading: 'auth/setIsAuthProcessLoading',
-    setAccessToken: 'auth/setAccessToken'
+    setAccessToken: 'auth/setAccessToken',
+    setUserInfo: 'auth/setUserInfo'
   });
 
   const login = async data => {
@@ -18,6 +20,7 @@ export const useFirebase = () => {
     const response = await AuthFirebaseService.login(data);
     if (!response.error && response?.user?.multiFactor?.user?.accessToken) {
       call(setAccessToken, response.user.multiFactor.user.accessToken);
+      call(setUserInfo, new UserFirebaseDto(response));
       useToast().success('Вы были успешно авторизированы и будете перенаправлены на главную страницу');
       setTimeout(() => {
         router.push('/');
@@ -29,9 +32,7 @@ export const useFirebase = () => {
 
   const signup = async data => {
     call(setIsAuthProcessLoading, true);
-    console.log('signUp');
     const response = await AuthFirebaseService.signup(data);
-    console.log(response);
     if (!response.error && response?.user?.multiFactor?.user?.accessToken) {
       useToast().success('Вы были успешно зарегистрированы и будете перенаправлены на страницу авторизации');
       setTimeout(() => {
@@ -42,7 +43,19 @@ export const useFirebase = () => {
     return response;
   }
 
+  const signout = async () => {
+    call(setIsAuthProcessLoading, true);
+    const response = await AuthFirebaseService.signout();
+    if (!response.error) {
+      call(setUserInfo, null);
+      call(setAccessToken, null);
+      useToast().success('Вы успешно вышли из аккаунта');
+    }
+    call(setIsAuthProcessLoading, false);
+    return response;
+  };
+
   return {
-    signup, login
+    signup, login, signout
   };
 };

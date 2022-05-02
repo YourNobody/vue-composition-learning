@@ -1,12 +1,9 @@
 <template>
-  <div class="container">
     <router-view></router-view>
-  </div>
 </template>
 
 <script setup>
   import "vue-toastification/dist/index.css";
-  import {onMounted} from 'vue';
   import {useDocumentContentLoaded} from '@/hooks';
   import {useToast} from 'vue-toastification';
   import {isOnline} from '@/helpers';
@@ -30,6 +27,10 @@
     width: 1024px;
     min-height: 100vh;
     margin: 0 auto;
-    position: relative;
+  }
+
+  .container-h-auto {
+      width: 1024px;
+      margin: 0 auto;
   }
 </style>

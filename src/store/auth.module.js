@@ -1,24 +1,18 @@
-import {AuthFirebaseService} from '@/services';
-
 export default {
   state: () => ({
     userInfo: null,
     accessToken: null,
-    isAuthProcessLoading: false,
-    count: 0
+    isAuthProcessLoading: false
   }),
   getters: {
     isAuthenticated: (state) => !!state.accessToken,
   },
   mutations: {
-    increment(state, value) {
-      state.count += value || 1;
-    },
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
     },
-    setInfo(state, userInfo) {
-      state.info = userInfo;
+    setUserInfo(state, userInfo) {
+      state.userInfo = userInfo;
     },
     setIsAuthProcessLoading(state, isLoadingValue) {
       state.isAuthProcessLoading = isLoadingValue;
