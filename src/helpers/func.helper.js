@@ -19,3 +19,22 @@ export const generateName = (...values) => {
     return acc;
   }, '');
 }
+
+export const insertInto = (
+  str,
+  obj = { index: 1, value: '' },
+  options = { splitter: ' ', wrapWithLeft: '', wrapWithRight: '' }
+) => {
+  const splitted = str.split(options.splitter);
+  splitted.splice(obj.index, 0, wrapLine(obj.value, options.wrapWithLeft, options.wrapWithRight));
+  return splitted.join(options.splitter);
+};
+
+export const insertIntoName = (str, value) => {
+  return insertInto(str, { index: 1, value }, { splitter: ' ', wrapWithLeft: '<', wrapWithRight: '>' });
+}
+
+export const wrapLine = (str, wrapWithLeft = '', wrapWithRight = '') => {
+  if (!str) return '';
+  return `${wrapWithLeft}${str}${wrapWithRight}`;
+}

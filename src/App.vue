@@ -23,6 +23,12 @@
     min-height: 100vh;
   }
 
+  html {
+    overflow-x: hidden;
+
+    margin-right: calc(-1 * (100vw - 100%));
+  }
+
   .container {
     width: 1024px;
     min-height: 100vh;
