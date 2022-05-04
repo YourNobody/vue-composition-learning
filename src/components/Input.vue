@@ -7,8 +7,10 @@
     <input
       type="text"
       :class="{
-        'error': errors && errors.length
+        'error': errors && errors.length,
+        [classes.inputClass]: classes.inputClass
       }"
+      :style="styles.inputStyle && styles.inputStyle"
       :id="inputId"
       :value="modelValue"
       :placeholder="placeholder || 'Введите текст'"
@@ -33,14 +35,21 @@ export default {
     errors: [Array],
     label: [String],
     placeholder: [String],
-    modelValue: [String, Number],
-    'v-focus': []
+    modelValue: [String, Number]
   },
-  setup() {
+  setup(props, context) {
     const inputId = v4();
 
+    const classes = {
+      inputClass: context.attrs['input-class']
+    };
+
+    const styles = {
+      inputStyle: context.attrs['input-style']
+    };
+
     return {
-      inputId
+      inputId, classes, styles
     };
   }
 };

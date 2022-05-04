@@ -10,6 +10,10 @@ export const up = str => {
   return str;
 }
 
+export const indexOf = (str, whatToFind) => {
+  return low(str).indexOf(low(whatToFind)) > -1;
+};
+
 export const generateName = (...values) => {
   if (!values) throw new Error(`Can't generate from empty arguments`);
   return values.reduce((acc, value, index) => {

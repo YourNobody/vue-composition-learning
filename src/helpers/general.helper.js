@@ -20,3 +20,7 @@ export const clearObjectValues = (obj, exclude) => {
     else obj[key] = '';
   }
 };
+
+export const mapFilterOptions = (filterOptions, whatToMap = 'label') => {
+  return filterOptions.map(option => option[whatToMap]);
+};

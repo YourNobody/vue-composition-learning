@@ -1,6 +1,5 @@
 import {createApp} from 'vue';
 import Toast from 'vue-toastification';
-import 'vue-toastification/dist/index.css';
 import {plugin as formKitPlugin, defaultConfig as formKitDefaultConfig} from '@formkit/vue';
 import App from './App.vue';
 import router from './router';
@@ -8,8 +7,12 @@ import store from './store';
 import directives from '@/directives';
 import components from '@/components';
 import {generalToastOptions} from '@/configs';
+import {createPinia} from 'pinia';
+
+import 'vue-toastification/dist/index.css';
 
 const app = createApp(App);
+const pinia = createPinia();
 
 components.forEach(component => {
   app.component(component.name, component);
@@ -20,6 +23,7 @@ directives.forEach(directive => {
 });
 
 app.use(store)
+  .use(pinia)
   .use(router)
   .use(Toast, generalToastOptions)
   .use(formKitPlugin, formKitDefaultConfig)

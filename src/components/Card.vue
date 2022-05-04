@@ -45,6 +45,7 @@ export default {
 .card {
   padding: 15px;
   border: 1px solid black;
+  background-color: white;
 }
 
 h3, h4 {
