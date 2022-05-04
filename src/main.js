@@ -8,6 +8,7 @@ import directives from '@/directives';
 import components from '@/components';
 import {generalToastOptions} from '@/configs';
 import {createPinia} from 'pinia';
+import naive from 'naive-ui'
 
 import 'vue-toastification/dist/index.css';
 
@@ -25,6 +26,7 @@ directives.forEach(directive => {
 app.use(store)
   .use(pinia)
   .use(router)
+  .use(naive)
   .use(Toast, generalToastOptions)
   .use(formKitPlugin, formKitDefaultConfig)
   .mount('#app');

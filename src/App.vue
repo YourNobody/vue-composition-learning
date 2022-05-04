@@ -7,6 +7,13 @@ import 'vue-toastification/dist/index.css';
 import {useDocumentContentLoaded} from '@/hooks';
 import {useToast} from 'vue-toastification';
 import {isOnline} from '@/helpers';
+import {onBeforeMount} from 'vue';
+import {useFirebase} from '@/hooks/useFirebaseServices';
+
+const {defineAuthStateListener} = useFirebase();
+onBeforeMount(() => {
+  defineAuthStateListener();
+});
 
 useDocumentContentLoaded(() => {
   !isOnline().value && useToast().warning('В данный момент подключение к интернету отсутствует.\nНекоторые возможности могут быть недоступны');

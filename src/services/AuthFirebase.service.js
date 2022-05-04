@@ -49,6 +49,16 @@ export class AuthFirebaseService {
     }
   }
 
+  defineAuthStateListener(callback) {
+    try {
+      return this.authedFirebase.onAuthStateChanged(callback);
+    } catch (e) {
+      return {
+        error: parseFirebaseError(e)
+      };
+    }
+  }
+
   async reset(data) {
   }
 }

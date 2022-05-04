@@ -1,25 +1,33 @@
 <template>
-  <div class='card'>
-    <div>
-      <h3>
-        <span class='label'>Name:</span>
-        <span class='content'>{{ insertIntoName(user.name, user.username) }}</span>
-      </h3>
-      <h4>
-        <span class='label'>Email:</span>
-        <span class='content'>{{ user.email }}</span>
-      </h4>
-      <h4>
-        <span class='label'>Company</span>
-        <span class='content'>{{ user.company.name }}</span>
-      </h4>
-      <h4>
-        <span class='label'>City:</span>
-        <span class='content'>{{ user.address.city }}</span>
-      </h4>
-    </div>
+  <n-card
+    class='c-card-component'
+    :title="insertIntoName(user.name, user.username)"
+    :segmented="{
+      content: false,
+      footer: 'soft'
+    }"
+  >
+    <template #header-extra>
+      {{ user.email }}
+    </template>
+    <template #footer>
+      <div class='quick__info'>
+        <h4>
+          <span class='label'>Website:</span>
+          <span class='content'>{{ user.website }}</span>
+        </h4>
+        <h4>
+          <span class='label'>Company</span>
+          <span class='content'>{{ user.company.name }}</span>
+        </h4>
+        <h4>
+          <span class='label'>City:</span>
+          <span class='content'>{{ user.address.city }}</span>
+        </h4>
+      </div>
+    </template>
     <div></div>
-  </div>
+  </n-card>
 </template>
 
 <script>
@@ -41,24 +49,36 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
-.card {
-  padding: 15px;
-  border: 1px solid black;
+<style lang='scss'>
+.c-card-component {
+  //border: 1px solid var(--n-close-color) !important;
   background-color: white;
-}
 
-h3, h4 {
-  font-weight: 500;
-  display: grid;
-  grid-template-columns: 60px auto;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
+  .n-card__content {
+    display: none;
+  }
 
-  .label {
-    font-size: 14px;
-    color: gray;
+  .n-card__footer:not(:first-child) {
+    //border-top: 1px solid var(--n-close-color) !important;
+  }
+
+  h3, h4 {
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 60px auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+
+    .label {
+      font-size: 14px;
+      color: gray;
+    }
+  }
+
+  .quick__info {
+    display: grid;
+    gap: 12px;
   }
 }
 </style>

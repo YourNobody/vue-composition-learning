@@ -8,37 +8,35 @@
       <nav class='nav container-h-auto'>
         <div class='app__link'>
           <div class='app__links_main'>
-            <c-button
-              class='go-from-inside'
+            <n-button
+              strong secondary type="primary"
               @click="changeBlock('/')"
-            >На главную</c-button>
-            <c-button
+            >На главную</n-button>
+            <n-button
               class='unwrap'
               @click='isActionsShown = !isActionsShown'
-            >></c-button>
+            >></n-button>
           </div>
           <transition
             name="slide-fade"
           >
             <div class='actions__pages' v-if='isActionsShown'>
-              <c-button
-                class='go-from-inside'
+              <n-button
                 @click="changeBlock('/auth/signup')"
-              >Зарегистрироваться</c-button>
-              <c-button
-                class='go-from-inside'
+              >Зарегистрироваться</n-button>
+              <n-button
                 @click="changeBlock('/auth/login')"
-              >Войти</c-button>
+              >Войти</n-button>
             </div>
           </transition>
         </div>
         <div class='profile'>
           <div class='profile__open'>
-            <c-button class='go-from-inside'>Профиль</c-button>
+            <n-button class='go-from-inside'>Профиль</n-button>
           </div>
         </div>
       </nav>
-      <hr class='container-h-auto header_hr'>
+      <n-divider />
     </header>
     <div class='users container-h-auto'>
       <div class="profile__info" v-if="false">
@@ -46,16 +44,18 @@
       </div>
       <div class='users__filters'>
         <div class='users__filters_search'>
-          <c-input
-            input-style="border: 1px solid black"
-            v-model.trim="usersStore.filterLine"
+          <n-input
+            v-model:value='usersStore.filterLine'
+            type="text"
+            placeholder="Поиск"
           />
         </div>
         <div class='users__filters_actions'>
-          <c-button
-            class="go-over"
+          <n-button
             @click="isFiltersButtonsShown = !isFiltersButtonsShown"
-          >{{ isFiltersButtonsShown ? 'Скрыть' : 'Фильтры' }}</c-button>
+          >
+            {{ isFiltersButtonsShown ? 'Скрыть' : 'Фильтры' }}
+          </n-button>
           <div
             class="user__filters_block"
             v-if="isFiltersButtonsShown"
